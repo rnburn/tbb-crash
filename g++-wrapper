@@ -1,0 +1,24 @@
+#!/usr/bin/python
+
+# Wrapper to make gcc work with bazel
+#  See https://github.com/bazelbuild/bazel/issues/5090
+import os
+import sys
+
+drop_args = [
+      "-Wthread-safety",
+      "-Wself-assign",
+      "-Wl,-no-as-needed",
+      "-Wl,-z,relro,-z,now",
+]
+
+def main():
+  compiler = "/usr/local/bin/gcc-7"
+  argv = []
+  for arg in sys.argv[1:]:
+      if not arg in drop_args:
+          argv.append(arg)
+  os.execv(compiler, [compiler] + argv)
+
+if __name__ == "__main__":
+  main()

@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build satyr-build Docker image
+          command: docker build -t satyr-build ci
+      - run:
+          name: bazel.debug
+          command: ./ci/run_satyr_docker.sh './ci/do_ci.sh bazel.debug'
+

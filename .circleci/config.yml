@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    machine:
+      xcode:
+      version: 9.2.0
+    steps:
+      - brew install gcc
+      - brew install bazel
+      - checkout
+      - BAZEL_USE_CPP_ONLY_TOOLCHAIN=1 CC=$PWD/g++-wrapper bazel build //...
+      - ./bazel-bin/fib 25
