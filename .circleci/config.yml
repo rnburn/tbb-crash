@@ -1,9 +1,8 @@
 version: 2
 jobs:
   build:
-    machine:
-      xcode:
-      version: 9.2.0
+    macos:
+      xcode: "9.3"
     steps:
       - brew install gcc
       - brew install bazel
