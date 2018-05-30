@@ -1,0 +1,21 @@
+language: cpp
+sudo: true
+dist: trusty
+matrix:
+  include:
+  - os: osx
+    osx_image: xcode9
+    env:
+    - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+  - brew update
+  - brew install bazel
+  - brew install gcc
+script:
+  - mkdir -p build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON ..
+  - make
+  - make test
